@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AraihanCursor } from "@/components/araihan-cursor";
+import { useMoonPhase } from "@/hooks/useMoonPhase";
 
 // 15 TikTak access point messages
 const tikTakMessages = [
@@ -29,6 +30,8 @@ export function MysticalFlowerPortal() {
   const [hasInteracted, setHasInteracted] = useState(false);
   const [hoveredPetal, setHoveredPetal] = useState<number | null>(null);
   const [syllableVisible, setSyllableVisible] = useState(true);
+  const [animatedPetal, setAnimatedPetal] = useState(0);
+  const { phase: moonPhase, illumination } = useMoonPhase();
 
   // Sacred mantric sequence: NAH → IA → RA
   const sacredSyllables = ["NAH", "IA", "RA"];
@@ -48,9 +51,15 @@ export function MysticalFlowerPortal() {
       }, 1000);
     }, 20000);
 
+    // Sequential petal animation timer - 4 second intervals
+    const petalAnimationTimer = setInterval(() => {
+      setAnimatedPetal((prev) => (prev + 1) % 15);
+    }, 4000);
+
     return () => {
       clearInterval(petalTimer);
       clearInterval(syllableTimer);
+      clearInterval(petalAnimationTimer);
     };
   }, []);
 
@@ -79,6 +88,49 @@ export function MysticalFlowerPortal() {
     { base: "#008B8B", gradient: "#98FB98", glow: "#008B8B" }, // dark cyan
     { base: "#2E8B57", gradient: "#98FB98", glow: "#2E8B57" }, // sea green
   ];
+
+  function getMoonPath(phase: string): string {
+    const r = 12; // radius
+
+    switch (phase) {
+      case "New Moon":
+        return `M ${-r},0 a ${r},${r} 0 1,1 ${r * 2},0 a ${r},${r} 0 1,1 ${
+          -r * 2
+        },0`;
+      case "Waxing Crescent":
+        return `M ${-r},${-r} A ${r},${r} 0 1,1 ${-r},${r} A ${
+          r * 0.3
+        },${r} 0 0,0 ${-r},${-r}`;
+      case "First Quarter":
+        return `M ${-r},${-r} A ${r},${r} 0 1,1 ${-r},${r} A ${
+          r * 0.5
+        },${r} 0 0,0 ${-r},${-r}`;
+      case "Waxing Gibbous":
+        return `M ${-r},${-r} A ${r},${r} 0 1,1 ${-r},${r} A ${
+          r * 0.7
+        },${r} 0 0,0 ${-r},${-r}`;
+      case "Full Moon":
+        return `M ${-r},0 a ${r},${r} 0 1,0 ${r * 2},0 a ${r},${r} 0 1,0 ${
+          -r * 2
+        },0`;
+      case "Waning Gibbous":
+        return `M ${r},${-r} A ${r},${r} 0 1,0 ${r},${r} A ${
+          r * 0.7
+        },${r} 0 0,1 ${r},${-r}`;
+      case "Last Quarter":
+        return `M ${r},${-r} A ${r},${r} 0 1,0 ${r},${r} A ${
+          r * 0.5
+        },${r} 0 0,1 ${r},${-r}`;
+      case "Waning Crescent":
+        return `M ${r},${-r} A ${r},${r} 0 1,0 ${r},${r} A ${
+          r * 0.3
+        },${r} 0 0,1 ${r},${-r}`;
+      default:
+        return `M ${-r},0 a ${r},${r} 0 1,0 ${r * 2},0 a ${r},${r} 0 1,0 ${
+          -r * 2
+        },0`;
+    }
+  }
 
   return (
     <div className="relative w-full min-h-screen flex flex-col overflow-hidden">
@@ -132,31 +184,6 @@ export function MysticalFlowerPortal() {
 
       {/* Content Container */}
       <div className="relative flex flex-col items-center justify-start w-full min-h-screen z-10 py-4">
-        {/* Top Message Box - Minimal padding */}
-        <div className="w-full pt-2">
-          <div className="relative max-w-2xl mx-auto px-4">
-            <div className="absolute inset-0 bg-gradient-to-r from-violet-400/20 via-cyan-400/20 to-violet-400/20 rounded-lg blur-lg" />
-            <div
-              className="relative px-4 md:px-8 py-3 md:py-4 rounded-lg border-2 backdrop-blur-sm transition-all duration-1000"
-              style={{
-                borderColor: "#a78bfa",
-                backgroundColor: "rgba(30, 27, 75, 0.8)",
-                boxShadow: "0 0 30px rgba(167, 139, 250, 0.3)",
-              }}
-            >
-              <p
-                className="text-white text-lg md:text-xl font-light text-center transition-all duration-1000"
-                style={{
-                  fontFamily: "Cormorant Garamond, serif",
-                  textShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
-                }}
-              >
-                {tikTakMessages[activePetal]}
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* Flower Container with Elemental Ring */}
         <div className="w-full max-w-4xl mx-auto px-4 -mt-4 mb-4">
           <div className="w-[80%] aspect-square mx-auto">
@@ -227,6 +254,32 @@ export function MysticalFlowerPortal() {
                   <feGaussianBlur stdDeviation="6" result="blur" />
                   <feComposite in="SourceGraphic" in2="blur" operator="over" />
                 </filter>
+
+                {/* Text glow filter */}
+                <filter
+                  id="textGlow"
+                  x="-100%"
+                  y="-100%"
+                  width="300%"
+                  height="300%"
+                >
+                  <feGaussianBlur stdDeviation="1" result="glow" />
+                  <feMerge>
+                    <feMergeNode in="glow" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+
+                <filter
+                  id="bubbleGlow"
+                  x="-50%"
+                  y="-50%"
+                  width="200%"
+                  height="200%"
+                >
+                  <feGaussianBlur stdDeviation="2" result="glow" />
+                  <feComposite in="SourceGraphic" in2="glow" operator="over" />
+                </filter>
               </defs>
 
               {/* Outer Elemental Ring */}
@@ -235,7 +288,7 @@ export function MysticalFlowerPortal() {
                 <circle
                   r="180"
                   fill="none"
-                  stroke="rgba(255, 255, 255, 0.1)"
+                  stroke="rgba(255, 255, 255, .3)"
                   strokeWidth="1.5"
                   opacity="0.6"
                 />
@@ -243,7 +296,7 @@ export function MysticalFlowerPortal() {
                 <circle
                   r="182"
                   fill="none"
-                  stroke="rgba(167, 139, 250, 0.1)"
+                  stroke="rgba(167, 139, 250, 0.2)"
                   strokeWidth="0.5"
                   opacity="0.4"
                 />
@@ -326,7 +379,7 @@ export function MysticalFlowerPortal() {
                 {/* Resonancia Moon - Bottom Right */}
                 <g transform="translate(147, 107)">
                   <path
-                    d="M -8,-10 A 12,12 0 0,1 -8,10 A 8,8 0 0,0 -8,-10 Z"
+                    d={getMoonPath(moonPhase)}
                     fill="rgba(192, 192, 192, 0.3)"
                     stroke="#C0C0C0"
                     strokeWidth="2"
@@ -349,7 +402,7 @@ export function MysticalFlowerPortal() {
                     fontSize="16"
                     fontFamily="Cormorant Garamond, serif"
                   >
-                    Moon
+                    {moonPhase}
                   </text>
                 </g>
 
@@ -426,7 +479,7 @@ export function MysticalFlowerPortal() {
                 {/* Arrow paths adjusted for new positions */}
               </g>
 
-              {/* The 15 Enhanced Petals - Properly sized to fit within frame */}
+              {/* The 15 Enhanced Petals with floating messages */}
               <g style={{ transformOrigin: "250px 250px" }}>
                 {Array.from({ length: 15 }).map((_, i) => {
                   const angle = (i * 24 - 90) * (Math.PI / 180);
@@ -438,13 +491,16 @@ export function MysticalFlowerPortal() {
                   const radius = 70;
                   const petalLength = isActive || isHovered ? 45 : 40;
 
-                  // Base point where petal connects to center
+                  // Calculate petal positions
                   const baseX = centerX + radius * Math.cos(angle);
                   const baseY = centerY + radius * Math.sin(angle);
-
-                  // Tip of the petal
                   const tipX = baseX + petalLength * Math.cos(angle);
                   const tipY = baseY + petalLength * Math.sin(angle);
+
+                  // Calculate floating text position
+                  const textRadius = radius + 80; // Increased distance for text
+                  const textX = centerX + textRadius * Math.cos(angle);
+                  const textY = centerY + textRadius * Math.sin(angle);
 
                   // Enhanced petal shape with natural curves
                   const controlDistance1 = petalLength * 0.3;
@@ -480,56 +536,47 @@ export function MysticalFlowerPortal() {
                   const baseRightX = baseX + 8 * Math.cos(angle + Math.PI / 2);
                   const baseRightY = baseY + 8 * Math.sin(angle + Math.PI / 2);
 
+                  const pathData = `
+                    M ${baseX} ${baseY}
+                    Q ${baseLeftX} ${baseLeftY}, ${cp1LeftX} ${cp1LeftY}
+                    Q ${cp2LeftX} ${cp2LeftY}, ${tipX} ${tipY}
+                    Q ${cp2RightX} ${cp2RightY}, ${cp1RightX} ${cp1RightY}
+                    Q ${baseRightX} ${baseRightY}, ${baseX} ${baseY}
+                    Z
+                  `;
+
                   return (
                     <g key={i}>
                       {/* Glow effect for active/hovered petals */}
                       {(isActive || isHovered) && (
                         <path
-                          d={`
-                            M ${baseX} ${baseY}
-                            Q ${baseLeftX} ${baseLeftY}, ${cp1LeftX} ${cp1LeftY}
-                            Q ${cp2LeftX} ${cp2LeftY}, ${tipX} ${tipX}
-                            Q ${cp2RightX} ${cp2RightY}, ${cp1RightX} ${cp1RightY}
-                            Q ${baseRightX} ${baseRightY}, ${baseX} ${baseY}
-                            Z
-                          `}
+                          d={pathData}
                           fill={petalColors[i].glow}
                           opacity="0.4"
                           style={{ filter: "blur(8px)" }}
                         />
                       )}
 
-                      {/* Main petal */}
+                      {/* Main petal with enhanced breathing effect */}
                       <path
-                        d={`
-                          M ${baseX} ${baseY}
-                          Q ${baseLeftX} ${baseLeftY}, ${cp1LeftX} ${cp1LeftY}
-                          Q ${cp2LeftX} ${cp2LeftY}, ${tipX} ${tipY}
-                          Q ${cp2RightX} ${cp2RightY}, ${cp1RightX} ${cp1RightY}
-                          Q ${baseRightX} ${baseRightY}, ${baseX} ${baseY}
-                          Z
-                        `}
+                        d={pathData}
                         fill={`url(#petal-gradient-${i})`}
-                        stroke={
-                          isActive
-                            ? "white"
-                            : isHovered
-                            ? "rgba(255,255,255,0.8)"
-                            : "rgba(255,255,255,0.3)"
-                        }
-                        strokeWidth={isActive ? 2 : isHovered ? 1.5 : 0.5}
-                        filter={
-                          isActive || isHovered
-                            ? "url(#strongGlow)"
-                            : "url(#petalGlow)"
-                        }
                         style={{
-                          opacity: isActive ? 1 : isHovered ? 0.95 : 0.85,
+                          opacity:
+                            i === animatedPetal ? 1 : isHovered ? 0.95 : 0.85,
+                          filter:
+                            i === animatedPetal
+                              ? "brightness(1.2) drop-shadow(0 0 8px rgba(255,255,255,0.5))"
+                              : "none",
                           transition: "all 0.3s ease-in-out",
+                          animation:
+                            i === animatedPetal
+                              ? "petalBreathing 4s infinite ease-in-out"
+                              : "none",
                           cursor: "pointer",
-                          transform:
-                            isActive || isHovered ? "scale(1.03)" : "scale(1)",
                           transformOrigin: `${baseX}px ${baseY}px`,
+                          stroke: "rgba(255,255,255,1)",
+                          strokeWidth: i === animatedPetal ? "2" : "1",
                         }}
                         onMouseEnter={() => setHoveredPetal(i)}
                         onMouseLeave={() => setHoveredPetal(null)}
@@ -588,6 +635,29 @@ export function MysticalFlowerPortal() {
                             }}
                           />
                         </>
+                      )}
+
+                      {/* Floating message */}
+                      {isActive && (
+                        <g transform={`translate(${textX}, ${textY})`}>
+                          <text
+                            textAnchor="middle"
+                            fill="rgba(255, 255, 255, 0.9)"
+                            fontSize="14"
+                            fontFamily="Cormorant Garamond, serif"
+                            style={{
+                              filter: "url(#textGlow)",
+                              animation: `
+                                floatText ${
+                                  4 + Math.random() * 2
+                                }s infinite ease-in-out,
+                                fadeText 4s infinite ease-in-out
+                              `,
+                            }}
+                          >
+                            {tikTakMessages[i]}
+                          </text>
+                        </g>
                       )}
                     </g>
                   );
@@ -687,14 +757,14 @@ export function MysticalFlowerPortal() {
                   fontFamily="Cormorant Garamond, serif"
                   style={{
                     textShadow:
-                      "0 0 20px rgba(255,255,255,0.9), 0 0 40px rgba(64,224,208,0.6)",
+                      "0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(64, 224, 208, 0.6)",
                     transition: "all 1s ease-in-out",
                     animation: "mantricPulse 4s infinite ease-in-out",
                     opacity: syllableVisible ? 1 : 0,
                     transform: syllableVisible ? "scale(1)" : "scale(0.8)",
                   }}
                 >
-                  IA
+                  {sacredSyllables[currentSyllable]}
                 </text>
 
                 {/* Sacred syllable below */}
@@ -709,7 +779,7 @@ export function MysticalFlowerPortal() {
                   fontFamily="Cormorant Garamond, serif"
                   style={{
                     textShadow:
-                      "0 0 15px rgba(255,255,255,0.7), 0 0 30px rgba(64,224,208,0.4)",
+                      "0 0 15px rgba(255, 255, 255, 0.7), 0 0 30px rgba(64, 224, 208, 0.4)",
                     transition: "all 1s ease-in-out",
                     animation: "mantricPulse 4s infinite ease-in-out 1s",
                     opacity: syllableVisible ? 0.8 : 0,
@@ -718,6 +788,30 @@ export function MysticalFlowerPortal() {
                 >
                   {sacredSyllables[currentSyllable]}
                 </text> */}
+              </g>
+
+              {/* Particles around the core */}
+              <g className="particles">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <circle
+                    key={`particle-${i}`}
+                    r="2"
+                    fill="rgba(64, 224, 208, 0.6)"
+                    filter="url(#bubbleGlow)"
+                    style={{
+                      animation: `
+                        float ${3 + Math.random() * 2}s infinite ease-in-out ${
+                        Math.random() * 2
+                      }s,
+                        fadeInOut ${
+                          3 + Math.random() * 2
+                        }s infinite ease-in-out ${Math.random() * 2}s
+                      `,
+                      transformOrigin: "center",
+                      transform: `rotate(${i * 30}deg) translateY(-40px)`,
+                    }}
+                  />
+                ))}
               </g>
             </svg>
           </div>
@@ -1005,10 +1099,12 @@ export function MysticalFlowerPortal() {
         @keyframes float {
           0%,
           100% {
-            transform: translateY(0px) rotate(0deg);
+            transform: rotate(var(--angle)) translateY(-40px) translateX(0);
           }
           50% {
-            transform: translateY(-20px) rotate(5deg);
+            transform: rotate(var(--angle)) translateY(-60px) translateX(${
+              Math.random() * 10 - 5
+            }px);
           }
         }
 
@@ -1043,15 +1139,173 @@ export function MysticalFlowerPortal() {
           }
         }
 
-        @keyframes mysticalPulse {icalPulse {
-          0%,%,
-          100% { 100% {
-            transform: translate(-50%, -50%) scale(0.8);            transform: translate(-50%, -50%) scale(0.8);
+        @keyframes mysticalPulse {
+          0%,
+          100% {
+            transform: translate(-50%, -50%) scale(0.8);
             opacity: 0.05;
           }
           50% {
             transform: translate(-50%, -50%) scale(1.2);;
             opacity: 0.15;;
+          }
+        }
+
+        @keyframes petalPulse {
+          0%, 100% {
+            opacity: 0.85;
+            filter: brightness(1);
+          }
+          50% {
+            opacity: 1;
+            filter: brightness(1.3);
+          }
+        }
+
+        @keyframes petalBreathing {
+          0% {
+            filter: brightness(1) drop-shadow(0 0 2px rgba(255,255,255,0.3));
+            opacity: 0.85;
+            transform: scale(1);
+            stroke-width: 0.5;
+          }
+          25% {
+            filter: brightness(1.2) drop-shadow(0 0 6px rgba(255,255,255,0.5));
+            opacity: 0.92;
+            transform: scale(1.02);
+            stroke-width: 1;
+          }
+          50% {
+            filter: brightness(1.5) drop-shadow(0 0 12px rgba(255,255,255,0.8));
+            opacity: 1;
+            transform: scale(1.05);
+            stroke-width: 2;
+          }
+          75% {
+            filter: brightness(1.2) drop-shadow(0 0 6px rgba(255,255,255,0.5));
+            opacity: 0.92;
+            transform: scale(1.02);
+            stroke-width: 1;
+          }
+          100% {
+            filter: brightness(1) drop-shadow(0 0 2px rgba(255,255,255,0.3));
+            opacity: 0.85;
+            transform: scale(1);
+            stroke-width: 0.5;
+          }
+        }
+
+        @keyframes petalStrokeBreathing {
+          0% {
+            stroke-width: 0;
+          }
+          25% {
+            stroke-width: 0.5;
+          }
+          50% {
+            stroke-width: 1;
+          }
+          75% {
+            stroke-width: 0.5;
+          }
+          100% {
+            stroke-width: 0;
+          }
+        }
+
+        @keyframes strokeBreathing {
+          0% {
+            stroke: rgba(255,255,255,0.2);
+            stroke-width: 0.5;
+          }
+          25% {
+            stroke: rgba(255,255,255,0.4);
+            stroke-width: 1;
+          }
+          50% {
+            stroke: rgba(255,255,255,0.6);
+            stroke-width: 1.5;
+          }
+          75% {
+            stroke: rgba(255,255,255,0.4);
+            stroke-width: 1;
+          }
+          100% {
+            stroke: rgba(255,255,255,0.2);
+            stroke-width: 0.5;
+          }
+        }
+
+        @keyframes strokeFade {
+          0% {
+            stroke: rgba(255,255,255,0.2);
+          }
+          25% {
+            stroke: rgba(255,255,255,0.6);
+          }
+          50% {
+            stroke: rgba(255,255,255,1);
+          }
+          75% {
+            stroke: rgba(255,255,255,0.6);
+          }
+          100% {
+            stroke: rgba(255,255,255,0.2);
+          }
+        }
+
+        @keyframes fadeInOut {
+          0%,
+          100% {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          20%,
+          80% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes growAndFade {
+          0%,
+          100% {
+            transform: scale(0);
+            opacity: 0;
+          }
+          20%,
+          80% {
+            transform: scale(30);
+            opacity: 0.1;
+          }
+        }
+
+        @keyframes floatText {
+          0%,
+          100% {
+            transform: translateY(0) translateX(0);
+          }
+          25% {
+            transform: translateY(-5px) translateX(3px);
+          }
+          50% {
+            transform: translateY(-8px) translateX(-2px);
+          }
+          75% {
+            transform: translateY(-3px) translateX(2px);
+          }
+        }
+
+        @keyframes fadeText {
+          0%,
+          100% {
+            opacity: 0;
+            filter: blur(2px);
+          }
+          25%,
+          75% {
+            opacity: 1;
+            filter: blur(0);
           }
         }
       `}</style>
