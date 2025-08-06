@@ -683,51 +683,9 @@ export function MysticalFlowerPortal() {
                 />
 
                 {/* Main geometric structure - icosahedron */}
-                <polygon
-                  points="0,-35 -30,-12 -18,28 18,28 30,-12"
-                  fill="url(#coreGradient)"
-                  stroke="#40E0D0"
-                  strokeWidth="2"
-                  style={{
-                    filter: "drop-shadow(0 0 10px #00CED1)",
-                    animation: "coreBreath 6s infinite ease-in-out",
-                  }}
-                />
-                <polygon
-                  points="0,-35 30,-12 18,28 -18,28 -30,-12"
-                  fill="rgba(32, 178, 170, 0.8)"
-                  stroke="#40E0D0"
-                  strokeWidth="2"
-                />
+                {/* Removed pentagon polygons */}
 
                 {/* Wireframe lines */}
-                <line
-                  x1="0"
-                  y1="-35"
-                  x2="0"
-                  y2="28"
-                  stroke="#40E0D0"
-                  strokeWidth="2"
-                  opacity="0.8"
-                />
-                <line
-                  x1="-30"
-                  y1="-12"
-                  x2="30"
-                  y2="-12"
-                  stroke="#40E0D0"
-                  strokeWidth="2"
-                  opacity="0.8"
-                />
-                <line
-                  x1="-18"
-                  y1="28"
-                  x2="18"
-                  y2="28"
-                  stroke="#40E0D0"
-                  strokeWidth="2"
-                  opacity="0.8"
-                />
 
                 {/* Inner circles */}
                 <circle
