@@ -85,7 +85,7 @@ export function TransparentHeader() {
 
             <div className="flex flex-col">
               <span className="text-lg lg:text-xl font-light text-white group-hover:text-purple-200 transition-colors duration-300">
-                Provenella y
+                Proveneya &
               </span>
               <span className="text-xs lg:text-sm text-purple-300/80 font-light tracking-wider">
                 NAHIARA
