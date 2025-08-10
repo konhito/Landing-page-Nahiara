@@ -252,7 +252,7 @@ export default function ContactPage() {
               href="/book"
               className="px-8 py-3 border border-purple-500/50 text-white rounded-lg hover:bg-purple-500/10 transition-all duration-300 font-light"
             >
-              Explore Sacred Book
+              Explore Literary Saga
             </a>
           </div>
         </div>

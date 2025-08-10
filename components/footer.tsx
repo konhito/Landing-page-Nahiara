@@ -18,7 +18,7 @@ export default function Footer() {
               </div>
               <div>
                 <h3 className="text-lg font-light text-white">
-                  Asociación NAHIARA
+                  Provenella y Nahiara
                 </h3>
                 <p className="text-xs text-purple-300/80 tracking-wider">
                   Flower Protection Alliance

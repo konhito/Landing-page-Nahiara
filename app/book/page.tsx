@@ -11,9 +11,9 @@ export default function BookPage() {
               <BookOpen className="w-10 h-10 text-purple-400" />
             </div>
             <h1 className="text-4xl lg:text-6xl font-light text-white mb-4">
-              Sacred{" "}
+              Literary{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">
-                Book
+                Saga
               </span>
             </h1>
             <p className="text-xl text-white/80 max-w-2xl mx-auto">
@@ -33,7 +33,7 @@ export default function BookPage() {
               <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-8">
                 <h2 className="text-2xl font-light text-white mb-4 flex items-center">
                   <Flower2 className="w-6 h-6 text-purple-400 mr-3" />
-                  Chapter 1: The Awakening
+                  Volume 1: The Awakening
                 </h2>
                 <p className="text-white/70 leading-relaxed">
                   Discover the ancient wisdom of flower guardians and the sacred
@@ -50,7 +50,7 @@ export default function BookPage() {
               <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-8">
                 <h2 className="text-2xl font-light text-white mb-4 flex items-center">
                   <Flower2 className="w-6 h-6 text-cyan-400 mr-3" />
-                  Chapter 2: The Garden of Nations
+                  Volume 2: The Garden of Nations
                 </h2>
                 <p className="text-white/70 leading-relaxed">
                   Explore the national flowers of different countries and their
@@ -63,14 +63,11 @@ export default function BookPage() {
                   </span>
                 </div>
               </div>
-            </div>
 
-            {/* Right Column */}
-            <div className="space-y-8">
               <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-8">
                 <h2 className="text-2xl font-light text-white mb-4 flex items-center">
                   <Flower2 className="w-6 h-6 text-green-400 mr-3" />
-                  Chapter 3: Conservation Rituals
+                  Volume 3: Conservation Rituals
                 </h2>
                 <p className="text-white/70 leading-relaxed">
                   Learn about traditional and modern methods of flower
@@ -87,7 +84,7 @@ export default function BookPage() {
               <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-8">
                 <h2 className="text-2xl font-light text-white mb-4 flex items-center">
                   <Flower2 className="w-6 h-6 text-orange-400 mr-3" />
-                  Chapter 4: The Future Garden
+                  Volume 4: The Future Garden
                 </h2>
                 <p className="text-white/70 leading-relaxed">
                   Vision for a sustainable future where national flowers thrive
@@ -95,6 +92,77 @@ export default function BookPage() {
                 </p>
                 <div className="mt-6">
                   <span className="inline-flex items-center px-3 py-1 rounded-full text-xs bg-orange-500/20 text-orange-300 border border-orange-500/30">
+                    <Sparkles className="w-3 h-3 mr-1" />
+                    Coming Soon
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column */}
+            <div className="space-y-8">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-8">
+                <h2 className="text-2xl font-light text-white mb-4 flex items-center">
+                  <Flower2 className="w-6 h-6 text-pink-400 mr-3" />
+                  Volume 5: Sacred Geometry
+                </h2>
+                <p className="text-white/70 leading-relaxed">
+                  Explore the mathematical patterns and sacred geometry that
+                  underlie the natural world of flowers.
+                </p>
+                <div className="mt-6">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs bg-pink-500/20 text-pink-300 border border-pink-500/30">
+                    <Sparkles className="w-3 h-3 mr-1" />
+                    Coming Soon
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-8">
+                <h2 className="text-2xl font-light text-white mb-4 flex items-center">
+                  <Flower2 className="w-6 h-6 text-yellow-400 mr-3" />
+                  Volume 6: Mystical Traditions
+                </h2>
+                <p className="text-white/70 leading-relaxed">
+                  Discover the spiritual and mystical traditions surrounding
+                  flowers across different cultures and civilizations.
+                </p>
+                <div className="mt-6">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">
+                    <Sparkles className="w-3 h-3 mr-1" />
+                    Coming Soon
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-8">
+                <h2 className="text-2xl font-light text-white mb-4 flex items-center">
+                  <Flower2 className="w-6 h-6 text-indigo-400 mr-3" />
+                  Volume 7: The Guardian's Path
+                </h2>
+                <p className="text-white/70 leading-relaxed">
+                  Learn the ancient practices and responsibilities of becoming
+                  a true guardian of the floral realm.
+                </p>
+                <div className="mt-6">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                    <Sparkles className="w-3 h-3 mr-1" />
+                    Coming Soon
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-8">
+                <h2 className="text-2xl font-light text-white mb-4 flex items-center">
+                  <Flower2 className="w-6 h-6 text-red-400 mr-3" />
+                  Sacred Volume
+                </h2>
+                <p className="text-white/70 leading-relaxed">
+                  The ultimate compilation of wisdom, prophecies, and sacred
+                  knowledge passed down through generations of flower guardians.
+                </p>
+                <div className="mt-6">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs bg-red-500/20 text-red-300 border border-red-500/30">
                     <Sparkles className="w-3 h-3 mr-1" />
                     Coming Soon
                   </span>
@@ -109,14 +177,14 @@ export default function BookPage() {
       <section className="relative py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h3 className="text-3xl font-light text-white mb-8">
-            The Sacred Book is{" "}
+            The Literary Saga is{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">
               Under Development
             </span>
           </h3>
           <p className="text-lg text-white/80 mb-12 max-w-2xl mx-auto">
             Our team of flower guardians and mystical scholars are carefully
-            crafting each chapter to preserve the ancient wisdom of the
+            crafting each volume to preserve the ancient wisdom of the
             botanical world.
           </p>
 

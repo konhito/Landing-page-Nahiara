@@ -5,6 +5,8 @@ import {
   Users,
   Trophy,
   Heart,
+  Leaf,
+  Smartphone,
 } from "lucide-react";
 
 export default function CardGamePage() {
@@ -31,49 +33,92 @@ export default function CardGamePage() {
         </div>
       </section>
 
-      {/* Game Features */}
+      {/* Features Section */}
       <section className="relative py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-light text-white mb-6">
+              Game{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">
+                Features
+              </span>
+            </h2>
+            <p className="text-lg text-white/80 max-w-2xl mx-auto">
+              Discover the unique elements that make our card game an immersive
+              experience for flower guardians of all ages.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Feature 1 */}
-            <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-8 text-center">
-              <div className="w-16 h-16 mx-auto mb-6 bg-purple-500/20 rounded-full flex items-center justify-center">
+            <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-6 hover:bg-white/10 transition-all duration-300">
+              <div className="w-16 h-16 mx-auto mb-4 bg-purple-500/20 rounded-full flex items-center justify-center">
                 <Flower2 className="w-8 h-8 text-purple-400" />
               </div>
-              <h3 className="text-xl font-light text-white mb-4">
-                National Flowers
-              </h3>
-              <p className="text-white/70 leading-relaxed">
-                Discover and collect cards featuring the national flowers of
-                different countries, each with unique mystical properties.
+              <h3 className="text-xl font-light text-white mb-3">Educational Gameplay</h3>
+              <p className="text-white/70">
+                Learn about national flowers, their cultural significance, and
+                conservation needs through strategic card play.
               </p>
             </div>
 
             {/* Feature 2 */}
-            <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-8 text-center">
-              <div className="w-16 h-16 mx-auto mb-6 bg-cyan-500/20 rounded-full flex items-center justify-center">
+            <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-6 hover:bg-white/10 transition-all duration-300">
+              <div className="w-16 h-16 mx-auto mb-4 bg-cyan-500/20 rounded-full flex items-center justify-center">
                 <Users className="w-8 h-8 text-cyan-400" />
               </div>
-              <h3 className="text-xl font-light text-white mb-4">
-                Multiplayer
-              </h3>
-              <p className="text-white/70 leading-relaxed">
-                Play with friends and family in a cooperative game that
-                celebrates flower conservation and cultural heritage.
+              <h3 className="text-xl font-light text-white mb-3">Multiplayer Experience</h3>
+              <p className="text-white/70">
+                Play with friends and family, building a community of flower
+                guardians while having fun.
               </p>
             </div>
 
             {/* Feature 3 */}
-            <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-8 text-center">
-              <div className="w-16 h-16 mx-auto mb-6 bg-green-500/20 rounded-full flex items-center justify-center">
-                <Trophy className="w-8 h-8 text-green-400" />
+            <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-6 hover:bg-white/10 transition-all duration-300">
+              <div className="w-16 h-16 mx-auto mb-4 bg-green-500/20 rounded-full flex items-center justify-center">
+                <Leaf className="w-8 h-8 text-green-400" />
               </div>
-              <h3 className="text-xl font-light text-white mb-4">
-                Educational
-              </h3>
-              <p className="text-white/70 leading-relaxed">
-                Learn about flower symbolism, conservation efforts, and cultural
-                significance while having fun.
+              <h3 className="text-xl font-light text-white mb-3">Conservation Focus</h3>
+              <p className="text-white/70">
+                Each game session contributes to real-world flower conservation
+                efforts and awareness.
+              </p>
+            </div>
+
+            {/* Feature 4 */}
+            <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-6 hover:bg-white/10 transition-all duration-300">
+              <div className="w-16 h-16 mx-auto mb-4 bg-orange-500/20 rounded-full flex items-center justify-center">
+                <Sparkles className="w-8 h-8 text-orange-400" />
+              </div>
+              <h3 className="text-xl font-light text-white mb-3">Beautiful Artwork</h3>
+              <p className="text-white/70">
+                Stunning illustrations of national flowers from around the world,
+                created by talented artists.
+              </p>
+            </div>
+
+            {/* Feature 5 */}
+            <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-6 hover:bg-white/10 transition-all duration-300">
+              <div className="w-16 h-16 mx-auto mb-4 bg-pink-500/20 rounded-full flex items-center justify-center">
+                <Gamepad2 className="w-8 h-8 text-pink-400" />
+              </div>
+              <h3 className="text-xl font-light text-white mb-3">Strategic Depth</h3>
+              <p className="text-white/70">
+                Multiple game modes and strategies to keep players engaged and
+                challenged at all skill levels.
+              </p>
+            </div>
+
+            {/* Feature 6 - Digital Card Game */}
+            <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-6 hover:bg-white/10 transition-all duration-300">
+              <div className="w-16 h-16 mx-auto mb-4 bg-indigo-500/20 rounded-full flex items-center justify-center">
+                <Smartphone className="w-8 h-8 text-indigo-400" />
+              </div>
+              <h3 className="text-xl font-light text-white mb-3">Digital Card Game</h3>
+              <p className="text-white/70">
+                Experience the magic of our card game in digital format, available
+                on multiple platforms and devices.
               </p>
             </div>
           </div>
@@ -196,7 +241,7 @@ export default function CardGamePage() {
               href="/book"
               className="px-8 py-3 border border-purple-500/50 text-white rounded-lg hover:bg-purple-500/10 transition-all duration-300 font-light"
             >
-              Explore Sacred Book
+              Explore Literary Saga
             </a>
           </div>
         </div>

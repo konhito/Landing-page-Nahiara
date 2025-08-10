@@ -28,7 +28,7 @@ export default function Home() {
               href="/book"
               className="px-8 py-3 bg-gradient-to-r from-purple-600 to-cyan-600 text-white rounded-lg hover:from-purple-700 hover:to-cyan-700 transition-all duration-300 font-light"
             >
-              Explore Sacred Book
+              Explore Literary Saga
             </a>
             <a
               href="/card-game"

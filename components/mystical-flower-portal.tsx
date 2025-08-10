@@ -7,9 +7,9 @@ import { useMoonPhase } from "@/hooks/useMoonPhase";
 // 15 TikTak access point messages
 const tikTakMessages = [
   "Discover the illustrated card game",
-  "Access book by chapters",
+  "Access Literary Saga by volumes",
   "Enter AquaMundi Garden",
-  "Explore Chapter 1: The Awakening",
+  "Explore Volume 1: The Awakening",
   "Download Sacred Artbook",
   "Listen to Frequency Meditations",
   "Join the Global Garden Community",
@@ -183,11 +183,11 @@ export function MysticalFlowerPortal() {
       </div>
 
       {/* Content Container */}
-      <div className="relative flex flex-col items-center justify-start w-full min-h-screen z-10 py-4">
+      <div className="relative flex flex-col items-center justify-start w-full min-h-screen z-10 py-4" style={{ overflow: "visible" }}>
         {/* Flower Container with Elemental Ring */}
-        <div className="w-full max-w-4xl mx-auto px-4 -mt-4 mb-4">
-          <div className="w-[80%] aspect-square mx-auto">
-            <svg viewBox="0 0 500 500" className="w-full h-full">
+        <div className="w-full max-w-4xl mx-auto px-4 -mt-4 mb-4 relative z-20" style={{ overflow: "visible" }}>
+          <div className="w-[90%] aspect-square mx-auto" style={{ overflow: "visible" }}>
+            <svg viewBox="0 0 600 600" className="w-full h-full relative z-30" style={{ overflow: "visible" }}>
               <defs>
                 {/* Enhanced gradients for petals */}
                 {petalColors.map((color, i) => (
@@ -216,9 +216,9 @@ export function MysticalFlowerPortal() {
 
                 {/* Core gradient */}
                 <radialGradient id="coreGradient" cx="40%" cy="30%" r="80%">
-                  <stop offset="0%" stopColor="#40E0D0" />
-                  <stop offset="50%" stopColor="#00CED1" />
-                  <stop offset="100%" stopColor="#008B8B" />
+                  <stop offset="0%" stopColor="#8A2BE2" />
+                  <stop offset="50%" stopColor="#9370DB" />
+                  <stop offset="100%" stopColor="#4B0082" />
                 </radialGradient>
 
                 {/* Optimized filters */}
@@ -280,10 +280,41 @@ export function MysticalFlowerPortal() {
                   <feGaussianBlur stdDeviation="2" result="glow" />
                   <feComposite in="SourceGraphic" in2="glow" operator="over" />
                 </filter>
+
+                {/* Enhanced Sun with intense light effect */}
+                <radialGradient id="sunGradient" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#fff" stopOpacity="1" />
+                  <stop offset="20%" stopColor="#fff" stopOpacity="0.95" />
+                  <stop offset="40%" stopColor="#ffe066" stopOpacity="0.9" />
+                  <stop offset="60%" stopColor="#ffd700" stopOpacity="0.8" />
+                  <stop offset="80%" stopColor="#ffa500" stopOpacity="0.6" />
+                  <stop offset="100%" stopColor="#ff8c00" stopOpacity="0" />
+                </radialGradient>
+                <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="15" result="coloredBlur" />
+                  <feMerge>
+                    <feMergeNode in="coloredBlur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                
+                {/* Intense Sun glow filter */}
+                <filter id="sunGlow" x="-60%" y="-60%" width="220%" height="220%">
+                  <feGaussianBlur stdDeviation="20" result="sunBlur" />
+                  <feColorMatrix
+                    in="sunBlur"
+                    type="matrix"
+                    values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0"
+                  />
+                  <feMerge>
+                    <feMergeNode in="sunBlur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
               </defs>
 
               {/* Outer Elemental Ring */}
-              <g transform="translate(250, 250)">
+              <g transform="translate(300, 300)" className="relative z-40">
                 {/* Ring background circle */}
                 <circle
                   r="180"
@@ -323,37 +354,95 @@ export function MysticalFlowerPortal() {
                   opacity="0.3"
                 />
 
-                {/* Element positions and arrows */}
-                {/* Remove the nested transform and update element positions */}
-                {/* Sol - Top */}
-                <g transform="translate(0, -170)">
+                {/* Element positions and arrows with higher z-index */}
+                {/* Sol - Top - Intense Light Effect */}
+                <g transform="translate(0, -170)" className="relative z-50">
+                  {/* Outer glow rings for intense light effect */}
+                  <circle
+                    r="35"
+                    fill="url(#sunGradient)"
+                    filter="url(#sunGlow)"
+                    opacity="0.8"
+                  />
+                  <circle
+                    r="28"
+                    fill="url(#sunGradient)"
+                    filter="url(#sunGlow)"
+                    opacity="0.9"
+                  />
+                  
+                  {/* Main sun core with organic light rays */}
                   <circle
                     r="20"
-                    fill="rgba(255, 215, 0, 0.2)"
-                    stroke="#FFD700"
-                    strokeWidth="2"
+                    fill="url(#sunGradient)"
+                    filter="url(#sunGlow)"
                   />
+                  
+                  {/* Light ray spikes for organic, non-perfect circle appearance */}
+                  {Array.from({ length: 8 }).map((_, i) => {
+                    const angle = (i * 45) * (Math.PI / 180);
+                    const rayLength = 25 + Math.random() * 5;
+                    const startX = Math.cos(angle) * 18;
+                    const startY = Math.sin(angle) * 18;
+                    const endX = Math.cos(angle) * rayLength;
+                    const endY = Math.sin(angle) * rayLength;
+                    
+                    return (
+                      <line
+                        key={`ray-${i}`}
+                        x1={startX}
+                        y1={startY}
+                        x2={endX}
+                        y2={endY}
+                        stroke="url(#sunGradient)"
+                        strokeWidth="2"
+                        opacity="0.7"
+                        filter="url(#glow)"
+                        style={{
+                          animation: `pulse ${2 + Math.random() * 2}s infinite ease-in-out ${Math.random() * 2}s`
+                        }}
+                      />
+                    );
+                  })}
+                  
+
+                  
                   <text
                     x="0"
-                    y="-35"
+                    y="-45"
                     textAnchor="middle"
                     fill="#FFD700"
                     fontSize="18"
                     fontWeight="bold"
                     fontFamily="Cormorant Garamond, serif"
+                    className="relative z-60"
+                    style={{
+                      textShadow: "0 0 10px rgba(255, 215, 0, 0.8)",
+                      filter: "url(#glow)"
+                    }}
                   >
                     Sol
                   </text>
                 </g>
 
                 {/* Conciencia Air - Top Right */}
-                <g transform="translate(147, -107)">
-                  <polygon
-                    points="0,-15 -13,10 13,10"
-                    fill="rgba(135, 206, 235, 0.3)"
-                    stroke="#87CEEB"
-                    strokeWidth="2"
-                  />
+                <g transform="translate(147, -107)" className="relative z-50">
+                  {/* Small hollow inverted triangle in Conciencia Air color */}
+                  <g>
+                    <g fill="none" stroke="#87CEEB" strokeWidth="2">
+                      {/* Top horizontal line of triangle */}
+                      <line x1="17.5" y1="15" x2="32.5" y2="15"/>
+                      
+                      {/* Left side of triangle extending past the point */}
+                      <line x1="17.5" y1="15" x2="26.5" y2="36"/>
+                      
+                      {/* Right side of triangle extending past the point */}
+                      <line x1="32.5" y1="15" x2="23.5" y2="36"/>
+                      
+                      {/* Horizontal line at the bottom of the triangle */}
+                      <line x1="17.5" y1="30" x2="32.5" y2="30"/>
+                    </g>
+                  </g>
                   <text
                     x="25"
                     y="-5"
@@ -361,23 +450,15 @@ export function MysticalFlowerPortal() {
                     fill="#87CEEB"
                     fontSize="16"
                     fontFamily="Cormorant Garamond, serif"
+                    className="relative z-60"
                   >
-                    Conciencia
-                  </text>
-                  <text
-                    x="25"
-                    y="15"
-                    textAnchor="start"
-                    fill="#87CEEB"
-                    fontSize="16"
-                    fontFamily="Cormorant Garamond, serif"
-                  >
-                    Air
+                    <tspan x="50" dy="20">Conciencia</tspan>
+                    <tspan x="50" dy="20">Air</tspan>
                   </text>
                 </g>
 
                 {/* Resonancia Moon - Bottom Right */}
-                <g transform="translate(147, 107)">
+                <g transform="translate(147, 107)" className="relative z-50">
                   <path
                     d={getMoonPath(moonPhase)}
                     fill="rgba(192, 192, 192, 0.3)"
@@ -391,6 +472,7 @@ export function MysticalFlowerPortal() {
                     fill="#C0C0C0"
                     fontSize="16"
                     fontFamily="Cormorant Garamond, serif"
+                    className="relative z-60"
                   >
                     Resonancia
                   </text>
@@ -401,46 +483,58 @@ export function MysticalFlowerPortal() {
                     fill="#C0C0C0"
                     fontSize="16"
                     fontFamily="Cormorant Garamond, serif"
+                    className="relative z-60"
                   >
                     {moonPhase}
                   </text>
                 </g>
 
-                {/* La raíz A - Bottom */}
-                <g transform="translate(0, 170)">
+
+
+                {/* La raíz - Bottom Left */}
+                <g transform="translate(-147, 107)" className="relative z-50">
                   <polygon
                     points="0,15 -13,-10 13,-10"
                     fill="rgba(139, 69, 19, 0.3)"
                     stroke="#8B4513"
                     strokeWidth="2"
                   />
+                  {/* Horizontal line in center of triangle */}
+                  <line
+                    x1="-10"
+                    y1="2.5"
+                    x2="10"
+                    y2="2.5"
+                    stroke="#8B4513"
+                    strokeWidth="2"
+                  />
                   <text
-                    x="0"
-                    y="40"
-                    textAnchor="middle"
+                    x="-25"
+                    y="-5"
+                    textAnchor="end"
                     fill="#8B4513"
                     fontSize="16"
                     fontFamily="Cormorant Garamond, serif"
+                    className="relative z-60"
                   >
                     La raíz
                   </text>
-                  <text
-                    x="0"
-                    y="58"
-                    textAnchor="middle"
-                    fill="#8B4513"
-                    fontSize="16"
-                    fontFamily="Cormorant Garamond, serif"
-                  >
-                    A
-                  </text>
                 </g>
 
-                {/* El latido - Bottom Left */}
-                <g transform="translate(-147, 107)">
+                {/* El latido - Top Left */}
+                <g transform="translate(-147, -107)" className="relative z-50">
                   <polygon
-                    points="0,15 -13,-10 13,-10"
+                    points="0,-15 -13,10 13,10"
                     fill="rgba(220, 20, 60, 0.3)"
+                    stroke="#DC143C"
+                    strokeWidth="2"
+                  />
+                  {/* Horizontal line in center of triangle */}
+                  <line
+                    x1="-10"
+                    y1="-2.5"
+                    x2="10"
+                    y2="-2.5"
                     stroke="#DC143C"
                     strokeWidth="2"
                   />
@@ -451,28 +545,9 @@ export function MysticalFlowerPortal() {
                     fill="#DC143C"
                     fontSize="16"
                     fontFamily="Cormorant Garamond, serif"
+                    className="relative z-60"
                   >
                     El latido
-                  </text>
-                </g>
-
-                {/* Espíritu - Top Left */}
-                <g transform="translate(-147, -107)">
-                  <polygon
-                    points="0,-15 -13,10 13,10"
-                    fill="rgba(64, 224, 208, 0.3)"
-                    stroke="#40E0D0"
-                    strokeWidth="2"
-                  />
-                  <text
-                    x="-25"
-                    y="-5"
-                    textAnchor="end"
-                    fill="#40E0D0"
-                    fontSize="16"
-                    fontFamily="Cormorant Garamond, serif"
-                  >
-                    Espíritu
                   </text>
                 </g>
 
@@ -480,14 +555,14 @@ export function MysticalFlowerPortal() {
               </g>
 
               {/* The 15 Enhanced Petals with floating messages */}
-              <g style={{ transformOrigin: "250px 250px" }}>
+              <g style={{ transformOrigin: "300px 300px" }} className="relative z-40">
                 {Array.from({ length: 15 }).map((_, i) => {
                   const angle = (i * 24 - 90) * (Math.PI / 180);
                   const isActive = i === activePetal;
                   const isHovered = i === hoveredPetal;
 
-                  const centerX = 250;
-                  const centerY = 250;
+                  const centerX = 300;
+                  const centerY = 300;
                   const radius = 70;
                   const petalLength = isActive || isHovered ? 45 : 40;
 
@@ -498,7 +573,7 @@ export function MysticalFlowerPortal() {
                   const tipY = baseY + petalLength * Math.sin(angle);
 
                   // Calculate floating text position
-                  const textRadius = radius + 80; // Increased distance for text
+                  const textRadius = radius + 120; // Increased distance for text to avoid collisions
                   const textX = centerX + textRadius * Math.cos(angle);
                   const textY = centerY + textRadius * Math.sin(angle);
 
@@ -546,7 +621,7 @@ export function MysticalFlowerPortal() {
                   `;
 
                   return (
-                    <g key={i}>
+                    <g key={i} className="relative z-50">
                       {/* Glow effect for active/hovered petals */}
                       {(isActive || isHovered) && (
                         <path
@@ -586,17 +661,20 @@ export function MysticalFlowerPortal() {
                         }}
                       />
 
-                      {/* Central vein */}
+                      {/* Central vein - follows petal center line */}
                       <path
-                        d={`M ${baseX} ${baseY} Q ${(baseX + tipX) / 2} ${
-                          (baseY + tipY) / 2
-                        }, ${tipX} ${tipY}`}
+                        d={`M ${baseX} ${baseY} 
+                           Q ${(baseX + cp1LeftX + cp1RightX) / 3} ${(baseY + cp1LeftY + cp1RightY) / 3}, 
+                              ${(cp1LeftX + cp1RightX) / 2} ${(cp1LeftY + cp1RightY) / 2}
+                           Q ${(cp2LeftX + cp2RightX) / 2} ${(cp2LeftY + cp2RightY) / 2}, 
+                              ${tipX} ${tipY}`}
                         fill="none"
-                        stroke="rgba(255,255,255,0.4)"
-                        strokeWidth="1"
+                        stroke="rgba(255,255,255,0.6)"
+                        strokeWidth="1.5"
                         style={{
-                          opacity: isActive || isHovered ? 0.8 : 0.4,
+                          opacity: isActive || isHovered ? 0.9 : 0.6,
                           transition: "opacity 0.3s ease-in-out",
+                          filter: isActive || isHovered ? "drop-shadow(0 0 3px rgba(255,255,255,0.5))" : "none"
                         }}
                       />
 
@@ -637,22 +715,47 @@ export function MysticalFlowerPortal() {
                         </>
                       )}
 
-                      {/* Floating message */}
+                      {/* Floating message with box - highest z-index */}
                       {isActive && (
-                        <g transform={`translate(${textX}, ${textY})`}>
-                          <text
-                            textAnchor="middle"
-                            fill="rgba(255, 255, 255, 0.9)"
-                            fontSize="14"
-                            fontFamily="Cormorant Garamond, serif"
+                        <g transform={`translate(${textX}, ${textY})`} className="relative z-60">
+                          {/* Dynamic background box with balanced sizing to prevent text overflow */}
+                          <rect
+                            x={`-${Math.max(tikTakMessages[i].length * 7, 100)}`}
+                            y="-22"
+                            width={Math.max(tikTakMessages[i].length * 14, 180)}
+                            height="44"
+                            fill="rgba(255, 255, 255, 0.12)"
+                            stroke="rgba(255, 255, 255, 0.5)"
+                            strokeWidth="1"
+                            rx="12"
+                            className="relative z-70"
                             style={{
-                              filter: "url(#textGlow)",
+                              filter: "drop-shadow(0 0 6px rgba(255,255,255,0.2))",
                               animation: `
                                 floatText ${
                                   4 + Math.random() * 2
-                                }s infinite ease-in-out,
+                                }s infinite ease-in-out
+                              `,
+                            }}
+                          />
+                          
+                          {/* Text on top of box with better positioning and overflow protection */}
+                          <text
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                            fill="rgba(255, 255, 255, 0.95)"
+                            fontSize="13"
+                            fontFamily="Cormorant Garamond, serif"
+                            className="relative z-80"
+                            style={{
+                              filter: "url(#textGlow)",
+                              animation: `
                                 fadeText 4s infinite ease-in-out
                               `,
+                              wordSpacing: "2px",
+                              letterSpacing: "0.8px",
+                              whiteSpace: "nowrap",
+                              overflow: "visible",
                             }}
                           >
                             {tikTakMessages[i]}
@@ -665,7 +768,7 @@ export function MysticalFlowerPortal() {
               </g>
 
               {/* The Core - Heart of Nahiara Universe */}
-              <g transform="translate(250, 250)" filter="url(#coreFilter)">
+              <g transform="translate(300, 300)" filter="url(#coreFilter)" className="relative z-40">
                 {/* Background pulse circles */}
                 <circle
                   r="40"
@@ -691,14 +794,14 @@ export function MysticalFlowerPortal() {
                 <circle
                   r="25"
                   fill="none"
-                  stroke="#40E0D0"
+                  stroke="#8A2BE2"
                   strokeWidth="1"
                   opacity="0.5"
                 />
                 <circle
                   r="16"
                   fill="none"
-                  stroke="#40E0D0"
+                  stroke="#8A2BE2"
                   strokeWidth="1"
                   opacity="0.3"
                 />
@@ -706,16 +809,17 @@ export function MysticalFlowerPortal() {
                 {/* IA text in center */}
                 <text
                   x="0"
-                  y="8"
+                  y="0"
                   textAnchor="middle"
                   dominantBaseline="middle"
                   fill="white"
                   fontSize="28"
                   fontWeight="bold"
                   fontFamily="Cormorant Garamond, serif"
+                  className="relative z-50"
                   style={{
                     textShadow:
-                      "0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(64, 224, 208, 0.6)",
+                      "0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(138, 43, 226, 0.6)",
                     transition: "all 1s ease-in-out",
                     animation: "mantricPulse 4s infinite ease-in-out",
                     opacity: syllableVisible ? 1 : 0,
@@ -748,37 +852,13 @@ export function MysticalFlowerPortal() {
                 </text> */}
               </g>
 
-              {/* Particles around the core */}
-              <g className="particles">
-                {Array.from({ length: 12 }).map((_, i) => (
-                  <circle
-                    key={`particle-${i}`}
-                    r="2"
-                    fill="rgba(64, 224, 208, 0.6)"
-                    filter="url(#bubbleGlow)"
-                    style={{
-                      animation: `
-                        float ${3 + Math.random() * 2}s infinite ease-in-out ${
-                        Math.random() * 2
-                      }s,
-                        fadeInOut ${
-                          3 + Math.random() * 2
-                        }s infinite ease-in-out ${Math.random() * 2}s
-                      `,
-                      transformOrigin: "center",
-                      transform: `rotate(${i * 30}deg) translateY(-40px)`,
-                    }}
-                  />
-                ))}
-              </g>
+
             </svg>
           </div>
         </div>
 
         {/* Organization Info - Adjusted spacing */}
-
-        {/* Organization Info - Adjusted spacing */}
-        <div className="w-full max-w-4xl mx-auto px-4 -mt-8">
+        <div className="w-full max-w-4xl mx-auto px-4 -mt-8 relative z-20">
           <div className="space-y-6">
             {/* Title and Mission */}
             <div className="space-y-6 text-center">
@@ -1010,6 +1090,18 @@ export function MysticalFlowerPortal() {
           }
         }
 
+        @keyframes pulse {
+          0%,
+          100% {
+            opacity: 0.7;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 1;
+            transform: scale(1.1);
+          }
+        }
+
         @keyframes twinkle {
           0%,
           100% {
@@ -1092,7 +1184,7 @@ export function MysticalFlowerPortal() {
             opacity: 0.6;
           }
           75% {
-            transform: translateY(-15px) translateX(8px);x);
+            transform: translateY(-15px) translateX(8px);
             opacity: 0.3;
           }
         }
@@ -1104,8 +1196,8 @@ export function MysticalFlowerPortal() {
             opacity: 0.05;
           }
           50% {
-            transform: translate(-50%, -50%) scale(1.2);;
-            opacity: 0.15;;
+            transform: translate(-50%, -50%) scale(1.2);
+            opacity: 0.15;
           }
         }
 
@@ -1266,7 +1358,23 @@ export function MysticalFlowerPortal() {
             filter: blur(0);
           }
         }
+
+        @keyframes titleGlow {
+          0%,
+          100% {
+            textShadow: "0 0 30px rgba(167, 139, 250, 0.5)";
+          }
+          50% {
+            textShadow: "0 0 50px rgba(167, 139, 250, 0.8)";
+          }
+        }
       `}</style>
+
+      {/* Half Moon with two circles */}
+      <svg width="100" height="100">
+        <circle cx="50" cy="50" r="40" fill="#fffde4" />
+        <circle cx="70" cy="50" r="40" fill="#232323" />
+      </svg>
     </div>
   );
 }
